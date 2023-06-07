@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace HeistII_Group
 {
     class Program
@@ -49,6 +50,61 @@ namespace HeistII_Group
             Rolodex.Add(muscle2);
             Rolodex.Add(lock1);
             Rolodex.Add(lock2);
+
+            Console.WriteLine("Welcome to Heist: Part II - Group Edition");
+            Console.WriteLine("_________________________________________");
+            Console.WriteLine($"There are currently {Rolodex.Count} robbers in your rolodex.");
+            Console.WriteLine("Would you like to add to your rolodex today? Y/N");
+            string answer = Console.ReadLine();
+            if(answer.ToLower() == "y")
+            {
+                Console.WriteLine("___________________________________");
+                Console.WriteLine("What is your contact's name?");
+                string _newContactName = Console.ReadLine();
+                Console.WriteLine(@"What is your contact's specialty?
+                1: Hacker (Disables Alarm)
+                2: Muscle (Disables Guards)
+                3: Lock Specialist (Cracks the Vault)");
+                string _newContactSpecialty = Console.ReadLine();
+
+                if(_newContactSpecialty == "1")
+                {
+                    Hacker newContact = new Hacker();
+                    Rolodex.Add(newContact);
+                }
+                else if(_newContactSpecialty == "2")
+                {
+                    Muscle newContact = new Muscle();
+                    Rolodex.Add(newContact);
+                }
+                else if(_newContactSpecialty == "3")
+                {
+                    LockSpecialist newcontact = new LockSpecialist();
+                    Rolodex.Add(newcontact);
+                }
+                else
+                {
+                    Console.WriteLine("You seem like the Muscle type...");
+                    Muscle newContact = new Muscle();
+                    Rolodex.Add(newContact);
+                }
+
+                Console.WriteLine("What is your contact's skill level?");
+                string _newContactSkillLevel = Console.ReadLine();
+                Console.WriteLine("What is the percentage cut your contact expects to take from the heist?");
+                string _newContactCut = Console.ReadLine();
+
+                Rolodex.Select(i => i).TakeLast(1).Single().Name = _newContactName;
+                Rolodex.Select(i => i).TakeLast(1).Single().SkillLevel = int.Parse(_newContactSkillLevel);
+                Rolodex.Select(i => i).TakeLast(1).Single().PercentageCut = int.Parse(_newContactCut);
+                
+                Console.WriteLine("______________________________________________");
+                Console.WriteLine("Your new contact has been added!");
+            }
+            else
+            {
+
+            }
         }
     }
 }
