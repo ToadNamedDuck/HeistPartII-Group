@@ -140,7 +140,7 @@ namespace HeistII_Group
 
             if (thebank.AlarmScore < thebank.VaultScore && thebank.AlarmScore < thebank.SecurityGuardScore)
             {
-                Console.WriteLine("Least Secure:  TheAlarms.");
+                Console.WriteLine("Least Secure: The Alarms.");
             }
             else if (thebank.VaultScore < thebank.AlarmScore && thebank.VaultScore < thebank.SecurityGuardScore)
             {
@@ -193,10 +193,14 @@ namespace HeistII_Group
             if ((thebank.AlarmScore + thebank.SecurityGuardScore + thebank.VaultScore) <= 0)
             {
                 Console.WriteLine("The heist was a success!");
+                int overallTaken = 0;
                 foreach (IRobber crewMember in Crew)
                 {
-                    Console.WriteLine($"{crewMember.Name} takes {(crewMember.PercentageCut / 100) * thebank.CashOnHand} of the cash.");
+                    Console.WriteLine($"{crewMember.Name} takes {(crewMember.PercentageCut) * (thebank.CashOnHand / 100)} of the cash.");
+                    overallTaken = overallTaken + ((crewMember.PercentageCut) * (thebank.CashOnHand / 100));
+
                 }
+                Console.WriteLine($"And you get ${thebank.CashOnHand - overallTaken}");
             }
             else
             {
