@@ -21,7 +21,5 @@ namespace HeistII_Group
         Console.WriteLine($"{Name} has successfully picked the locks! We're in!!");
       }
     }
-
-
   }
 }
