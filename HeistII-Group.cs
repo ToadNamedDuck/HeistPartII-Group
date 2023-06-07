@@ -156,20 +156,20 @@ namespace HeistII_Group
 
             while (true)
             {
-            Console.WriteLine("-----------------------------------------");
-            Console.WriteLine("Type the number of the contact that you want in your crew");
-            
+                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("Type the number of the contact that you want in your crew");
+
 
                 for (int i = 0; i < Rolodex.Count; i++)
                 {
                     int _totalCutGiven = 0;
-                    foreach(IRobber r in Crew)
+                    foreach (IRobber r in Crew)
                     {
                         _totalCutGiven += r.PercentageCut;
                     }
-                    if((_totalCutGiven + Rolodex[i].PercentageCut) <= 100)
+                    if ((_totalCutGiven + Rolodex[i].PercentageCut) <= 100)
                     {
-                    Console.WriteLine($"Crewmember{i + 1}: Name: {Rolodex[i].Name}, Skill Level: {Rolodex[i].SkillLevel}, Percentage Cut: {Rolodex[i].PercentageCut}");
+                        Console.WriteLine($"Crewmember{i + 1}: Name: {Rolodex[i].Name}, Skill Level: {Rolodex[i].SkillLevel}, Percentage Cut: {Rolodex[i].PercentageCut}");
                     }
                 }
 
@@ -185,6 +185,23 @@ namespace HeistII_Group
                 }
             }
             //Begin the heist
+            Console.WriteLine("Please hold while we rob a bank...");
+            foreach (IRobber crewMember in Crew)
+            {
+                crewMember.PerformSkill(thebank);
+            }
+            if ((thebank.AlarmScore + thebank.SecurityGuardScore + thebank.VaultScore) <= 0)
+            {
+                Console.WriteLine("The heist was a success!");
+                foreach (IRobber crewMember in Crew)
+                {
+                    Console.WriteLine($"{crewMember.Name} takes {(crewMember.PercentageCut / 100) * thebank.CashOnHand} of the cash.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Y'all are failures! Go straight to Jail!");
+            }
         }
     }
 }
