@@ -110,10 +110,48 @@ namespace HeistII_Group
                     Console.WriteLine("Your new contact has been added!");
                 }
             }
+
+            Bank thebank = new Bank();
+
+            Random random = new Random();
+            thebank.AlarmScore = random.Next(0, 101);
+            thebank.VaultScore = random.Next(0, 101);
+            thebank.SecurityGuardScore = random.Next(0, 101);
+            thebank.CashOnHand = random.Next(50000, 1000001);
+
+            Console.WriteLine("______________________________________________");
+            Console.WriteLine("Recon Report of The Banks");
+            if (thebank.AlarmScore > thebank.VaultScore && thebank.AlarmScore > thebank.SecurityGuardScore)
+            {
+                Console.WriteLine("Most Secure:  The Alarms.");
+            }
+            else if (thebank.VaultScore > thebank.AlarmScore && thebank.VaultScore > thebank.SecurityGuardScore)
+            {
+                Console.WriteLine("Most Secure: The Vault.");
+            }
+            else if (thebank.SecurityGuardScore > thebank.AlarmScore && thebank.VaultScore < thebank.SecurityGuardScore)
+            {
+                Console.WriteLine("Most Secure: The super buff Guards.");
+            }
             else
             {
-
+                Console.WriteLine("Everything is secure.");
             }
+
+
+            if (thebank.AlarmScore < thebank.VaultScore && thebank.AlarmScore < thebank.SecurityGuardScore)
+            {
+                Console.WriteLine("Least Secure:  TheAlarms.");
+            }
+            else if (thebank.VaultScore < thebank.AlarmScore && thebank.VaultScore < thebank.SecurityGuardScore)
+            {
+                Console.WriteLine("Least Secure: The Vault.");
+            }
+            else if (thebank.SecurityGuardScore < thebank.AlarmScore && thebank.VaultScore > thebank.SecurityGuardScore)
+            {
+                Console.WriteLine("Least Secure: The super weak Guards.");
+            }
+
         }
     }
 }
