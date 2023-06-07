@@ -152,21 +152,39 @@ namespace HeistII_Group
             }
             Console.WriteLine("-----------------------------------------");
 
-            for (int i = 0; i < Rolodex.Count; i++)
-            {
-                Console.WriteLine($"Crewmember{i + 1}: Name: {Rolodex[i].Name}, Skill Level: {Rolodex[i].SkillLevel}, Percentage Cut: {Rolodex[i].PercentageCut}");
-
-            }
-
             List<IRobber> Crew = new List<IRobber>();
+
+            while (true)
+            {
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine("Type the number of the contact that you want in your crew");
-            int crewAnswer = int.Parse(Console.ReadLine());
+            
 
-            Crew.Add(Rolodex[crewAnswer - 1]);
+                for (int i = 0; i < Rolodex.Count; i++)
+                {
+                    int _totalCutGiven = 0;
+                    foreach(IRobber r in Crew)
+                    {
+                        _totalCutGiven += r.PercentageCut;
+                    }
+                    if((_totalCutGiven + Rolodex[i].PercentageCut) <= 100)
+                    {
+                    Console.WriteLine($"Crewmember{i + 1}: Name: {Rolodex[i].Name}, Skill Level: {Rolodex[i].SkillLevel}, Percentage Cut: {Rolodex[i].PercentageCut}");
+                    }
+                }
 
-
-
+                try
+                {
+                    int crewAnswer = int.Parse(Console.ReadLine());
+                    Crew.Add(Rolodex[crewAnswer - 1]);
+                    Rolodex.Remove(Rolodex[crewAnswer - 1]);
+                }
+                catch (System.FormatException)
+                {
+                    break;
+                }
+            }
+            //Begin the heist
         }
     }
 }
